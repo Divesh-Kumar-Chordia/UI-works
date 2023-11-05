@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import VueTailwindDatepicker from "vue-tailwind-datepicker";
 
-createApp(App).mount('#app')
+import './index.css'
+
+createApp(App).use(VueTailwindDatepicker).mount('#app')
