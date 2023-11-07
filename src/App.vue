@@ -1,36 +1,66 @@
 <template>
-    <!-- Profiling Element -->
-    <div class="bg-gray-50 inline-flex  justify-center gap-5	p-7	h-full items-start rounded-xl	" >
+  <!-- Profiling Element -->
+  <div
+    class="bg-gray-50 inline-flex justify-center gap-5 p-7 h-full items-start rounded-xl"
+  >
     <!-- Basic Information Form -->
-        <div class="flex flex-start bg-white	rounded-xl	p-7  drop-shadow-lg	">
-            <!-- Left Side -->
-            <div class="p-5 flex flex-col gap-3 w-full ">
-            <!-- Basic Information -->
-                <div class="gap-1.5	">
-                    <div class="text-gray-900 font-medium">Basic Information</div>
-                    <div class="text-gray-500">
-                    Enter the information below to claim your profile. You can change it anytime you want.
-                    </div>
-                </div>
-                <!-- Email Address -->
-                <div  class="mb-1.5">
-    <label for="email" class="block text-gray-700 font-medium">Email address <span class="text-red-600">*</span></label>
-    <input v-model="email" type="email" placeholder="your@gmail.com" id="email" class="block w-full bg-slate-50 rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 text-gray-500" @input="validateEmail">
-    <p id="error-message" class="text-red-600" v-if="showError">Invalid email address</p>
-</div>
+    <div class="flex flex-start bg-white rounded-xl p-7 drop-shadow-lg">
+      <!-- Left Side -->
+      <div class="p-5 flex flex-col gap-3 w-full">
+        <!-- Basic Information -->
+        <div class="gap-1.5">
+          <div class="text-gray-900 font-medium">Basic Information</div>
+          <div class="text-gray-500">
+            Enter the information below to claim your profile. You can change it
+            anytime you want.
+          </div>
+        </div>
+        <!-- Email Address -->
+        <div class="mb-1.5">
+          <label for="email" class="block text-gray-700 font-medium"
+            >Email address <span class="text-red-600">*</span></label
+          >
+          <input
+            v-model="email"
+            type="email"
+            placeholder="your@gmail.com"
+            id="email"
+            class="block w-full bg-slate-50 rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 text-gray-500"
+            @input="validateEmail"
+            @blur="validateEmail"
+          />
+          <p id="error-message" class="text-red-600" v-if="showError">
+            Invalid email address
+          </p>
+        </div>
 
-                <!-- <div class="mb-1.5">
+        <!-- <div class="mb-1.5">
                     <label for="dob" class=" text-gray-900 " >Date Of Birth <span class="text-red-600">*</span></label>
                     <div class="flex flex-row border-2 border-gray-200 w-fit px-2 items-center justify-center mt-2">
-                      <span class="border-r-2 border-gray-200 p-2">
-                        <img src="./assets/icons/clock.svg">
-                      </span>
                       <input type="date" name="dob" class="p-2">
                     </div>
                 </div> -->
-               <CustomDatePicker/>
-               <vue-tailwind-datepicker v-model="dateValue" />
-               <!-- <div>
+        <!-- Date picker here -->
+        <div class="h-[3rem] w-full mb-6 p-0">
+          <label for="" class="font-medium text-gray-700"
+            >Date Of Birth <span class="text-red-600">*</span></label
+            >
+            <div class="flex flex-row">
+              <span class="border-y-2 border-l-2 rounded-md border-gray-200 p-2 -mr-8 bg-white z-10">
+              <img src="./assets/icons/clock.svg">
+            </span>
+            <VueDatePicker
+            v-model="date"
+            :max-date="maxDate"
+            :format="format"
+            ignore-time-validation
+          >
+        </VueDatePicker>
+      </div>
+        </div>
+        <!-- <CustomDatePicker/> -->
+        <!-- <vue-tailwind-datepicker v-model="dateValue" /> -->
+        <!-- <div>
     <label for="datepicker-dateformat1">Custom date format</label>
     <b-form-datepicker
       id="datepicker-dateformat1"
@@ -45,155 +75,227 @@
       locale="en"
     ></b-form-datepicker>
   </div> -->
-               <!-- <datePicker 
+        <!-- <datePicker 
     :options="calendarArr" 
     class="calendar" 
     @handleClickDay="handleClickDay" 
     @handlePrevMonth="handlePrevMonth"
     @handleNextMonth="handleNextMonth"
   /> -->
-           <!-- Career -->
-                <div class="h-[9rem] w-full mb-6 p-0">
-                    <label for="career" class="font-medium	text-gray-700">Career Objective</label>
-                    <textarea
-                    id="career"
-                    cols="30" rows="10"
-                    placeholder="Your goals and career purpose go in here..."
-                    v-model="careerText"
-                    class="box-border  w-full h-full rounded-md text-gray-900 border-gray-200   border-2 px-3 py-1 drop-shadow-sm"
-                    >
-                    </textarea>
-                </div>
-              <!-- About  -->
-                <div class="h-[9rem] w-full p-0">
-                    <label for="career" class="font-medium	 text-gray-700">About</label>
-                    <textarea
-                    id="career"
-                    cols="30" rows="10"
-                    v-model="aboutText"
-                    placeholder="A little about me..."
-                    class="h-full w-full rounded-md text-gray-900 border-gray-200    border-2 py-1 px-3 drop-shadow-sm"
-                    >
-                    </textarea>
-                </div>
-                
+        <!-- Career -->
+        <div class="h-[10rem] w-full mb-8 p-0">
+          <label for="career" class="font-medium text-gray-700"
+            >Career Objective</label
+          >
+          <textarea
+            id="career"
+            cols="30"
+            rows="10"
+            placeholder="Your goals and career purpose go in here..."
+            v-model="careerText"
+            class="box-border w-full h-full rounded-md text-gray-900 border-gray-200 border-2 px-3 py-1 drop-shadow-sm"
+          >
+          </textarea>
+        </div>
+        <!-- About  -->
+        <div class="h-[10rem] w-full p-0">
+          <label for="career" class="font-medium text-gray-700">About</label>
+          <textarea
+            id="career"
+            cols="30"
+            rows="10"
+            v-model="aboutText"
+            placeholder="A little about me..."
+            class="h-full w-full rounded-md text-gray-900 border-gray-200 border-2 py-1 px-3 drop-shadow-sm"
+          >
+          </textarea>
+        </div>
+      </div>
+      <!-- Right Side -->
+      <div class="w-full p-5 flex flex-col">
+        <div class="flex flex-col mb-10">
+          <h4 class="font-medium text-gray-700">Profile Avatar</h4>
+          <!-- Profile Image -->
+          <!-- <img src="./assets/icons/usercircle.svg" class="w-[130px] h-[130px]"/> -->
+
+          <div
+            class="relative w-[130px] h-[130px] bg-[#FDF9F2] border-solid border-4 border-[#FCF3E6] rounded-full flex items-center justify-center self-center justify-self-center"
+          >
+          <img :src="userImage" class="
+          bg-[#FDF9F2]  rounded-full flex items-center justify-center"/>
+          <img src="./assets/icons/pen.png" class="absolute top-[66%] left-[66%]" @click="openImageFileInput" />
+    <input type="file" ref="fileInput" class="hidden" accept="image/*" @change="updateUserImage" />
+          </div>
+        </div>
+
+        <div class="w-full mb-5">
+          <label for="fname" class="font-medium text-gray-700"
+            >First name <span class="text-red-600">*</span></label
+          >
+          <input
+            type="text"
+            id="fname"
+            placeholder="Jyot"
+            class="w-full rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 text-gray-500"
+          />
+        </div>
+
+        <div class="w-full mb-10">
+          <label for="lname" class="font-medium text-gray-700"
+            >Last name <span class="text-red-600">*</span></label
+          >
+          <input
+            type="text"
+            id="lname"
+            placeholder="Singh"
+            class="rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 w-full text-gray-500"
+          />
+        </div>
+
+        <div class="flex items-center space-x-4 mb-5">
+          <label class="font-medium">Sex:</label>
+          <div class="flex items-center mr-4 gap-3">
+            <label
+              v-for="sex in ['Female', 'Male', 'Other', 'Prefer not to say']"
+              :key="sex"
+              class="cursor-pointer ml-2 text-md flex items-center"
+            >
+              <input
+                type="radio"
+                :value="sex"
+                v-model="selectedSex"
+                class="hidden"
+              />
+              <span
+                :class="{
+                  'radio-outer': true,
+                  'radio-checked': selectedSex === sex,
+                }"
+              >
+                <span class="radio-inner"></span>
+              </span>
+              {{ sex }}
+            </label>
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-10">
+          <h3 class="text-gray-900 font-medium">Add your video pitch</h3>
+          <h4 class="text-gray-500 mb-4">
+            Introduce yourself with a video intro
+          </h4>
+          <!-- Video Input -->
+          <div
+            class="py-4 px-6 w-full rounded-lg border-gray-200 justify-center items-center flex flex-col text-gray-500 border-2"
+          >
+            <!-- Icon -->
+            <div class="bg-gray-200 rounded-full p-1 mb-2">
+              <img
+                src="@/assets/icons/cloud.svg"
+                class="w-12 h-12 justify-center items-center p-3"
+              />
             </div>
-            <!-- Right Side -->
-            <div class="w-full p-5 flex flex-col ">
-                <div class="flex flex-col mb-10">
-                  <h4 class="font-medium text-gray-700	">Profile Avatar</h4>
-                  <!-- Profile Image -->
-                <!-- <img src="./assets/icons/usercircle.svg" class="w-[130px] h-[130px]"/> -->
-                
-                <div class="relative w-[130px] h-[130px] bg-[#FDF9F2] border-solid border-4 border-[#FCF3E6] rounded-full flex items-center justify-center self-center justify-self-center">
-                  <img src="./assets/icons/user.svg"/>
-                  <img src="./assets/icons/pen.png" class="absolute top-[66%] left-[66%]"/>
-                </div>
-              </div>
-                
-                <div class="w-full mb-5">
-                    <label for="fname" class="font-medium text-gray-700">First name <span class="text-red-600">*</span></label>
-                    <input type="text" id="fname" placeholder="Jyot" class="w-full rounded-lg border-solid border-gray-300 hover:border-gray-500  active:border-gray-900 border-2 p-2 text-gray-500 ">
-                </div>
-                
-                <div class="w-full mb-10">
-                    <label for="lname" class=" font-medium text-gray-700">Last name <span class="text-red-600">*</span></label>
-                    <input type="text" id="lname" placeholder="Singh" class="rounded-lg border-solid border-gray-300 hover:border-gray-500  active:border-gray-900 border-2 p-2 w-full text-gray-500">
-                </div>
-                
-                <div class="flex items-center space-x-4 mb-5">
-    <label class="font-medium">Sex:</label>
-    <div class="flex items-center mr-4 gap-3">
-      <label
-        v-for="sex in ['Female', 'Male', 'Other', 'Prefer not to say']"
-        :key="sex"
-        class="cursor-pointer ml-2 text-md flex items-center"
-      >
-        <input
-          type="radio"
-          :value="sex"
-          v-model="selectedSex"
-          class="hidden"
-        />
-        <span :class="{ 'radio-outer': true, 'radio-checked': selectedSex === sex }">
-          <span class="radio-inner"></span>
-        </span>
-        {{ sex }}
-      </label>
+            <!-- <video src=""></video> -->
+            <div class="font-normal">
+              <button class="text-yellow-600 font-bold" @click="openVideoFileInput">
+                Record pitch
+              </button>
+              <input
+                type="file"
+                ref="videoInput"
+                class="hidden"
+                @change="handleFileChange"
+                accept="video/*"
+              />
+              or upload a video
+              <br />
+              MP4,MOV WMV or AVI (max,5mb)
+            </div>
+          </div>
+        </div>
+        <div class="flex items-end justify-end flex-row">
+          <button
+            class="bg-yellow-500 rounded-lg px-4 py-3 font-bold text-white"
+          >
+            Claim Profile
+          </button>
+        </div>
+      </div>
+      <!-- Claim Profile Button -->
     </div>
   </div>
-                  
-                <div class=" flex flex-col  mb-10">
-                    <h3 class="text-gray-900 font-medium	">Add your video pitch</h3>
-                    <h4 class="text-gray-500 mb-4">Introduce yourself with a video intro</h4>
-                    <!-- Video Input -->
-                    <div class=" py-4 px-6 w-full  rounded-lg border-gray-200 justify-center items-center flex flex-col text-gray-500 border-2">
-                        <!-- Icon -->
-                        <div class="bg-gray-200 rounded-full p-1 mb-2">
-                          <img src="@/assets/icons/cloud.svg" class="w-12 h-12 justify-center items-center p-3"/>
-                        </div>
-                        <!-- <video src=""></video> -->
-                        <div class="font-normal">
-                          <button class="text-yellow-600 font-bold" @click="openFileInput">Record pitch</button>
-    <input type="file" ref="videoInput" class="hidden" @change="handleFileChange" accept="video/*">
-                            or upload a video 
-                        <br>
-                        MP4,MOV WMV or AVI (max,5mb)
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="flex  items-end justify-end flex-row">
-                  <button class=" bg-yellow-500 rounded-lg px-4 py-3 font-bold   ">Claim Profile</button>
-                </div>
-            </div>
-            <!-- Claim Profile Button -->
-        </div>
-    </div>
-  </template>
-  <script>
-
-import CustomDatePicker from '@/components/CustomDatePicker.vue';
+</template>
+<script>
+// import CustomDatePicker from '@/components/CustomDatePicker.vue';
 // import datePicker from './components/date-picker'
 // import { BFormDatepicker } from 'bootstrap-vue'
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   // components: { CustomDatePicker },
   components: {
     // 'b-form-datepicker': BFormDatepicker,
-    CustomDatePicker,
+    // CustomDatePicker,
+    VueDatePicker,
   },
   data() {
     return {
-      email: '',
-        showError: false,
-      careerText: '',
-      aboutText: '',
-      selectedSex: 'Male',
+      date: new Date(),
+      maxDate: new Date(),
+      email: "",
+      showError: false,
+      careerText: "",
+      aboutText: "",
+      selectedSex: "Male",
+      userImage: require('./assets/icons/user.svg'),
     };
   },
   methods: {
-    openFileInput() {
+    format() {
+      const day = this.date.getDate();
+      const month = this.date.getMonth() + 1;
+      const  monthName = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const year = this.date.getFullYear();
+      return `${day}- ${monthName[month]} -${year}`;
+    },
+    openImageFileInput() {
+      this.$refs.fileInput.click();
+    },
+    updateUserImage(event) {
+      const file = event.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          this.userImage = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
+    },
+    openVideoFileInput() {
       this.$refs.videoInput.click();
     },
     validateEmail() {
-            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-            
-            if (this.email.match(emailPattern)) {
-                this.showError = false;
-            } else {
-                this.showError = true;
-            }
-        },
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (this.email.match(emailPattern)) {
+        this.showError = false;
+      } else {
+        this.showError = true;
+      }
+    },
   },
 };
-  </script>
-  
-  <style lang="scss">
+</script>
+
+<style lang="scss">
 .radio-outer {
   width: 15px;
   height: 15px;
-  border: 2px solid #FFD700; /* Yellow-500 border color */
+  border: 2px solid #ffd700; /* Yellow-500 border color */
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -204,7 +306,7 @@ export default {
 .radio-inner {
   width: 7px;
   height: 7px;
-  background-color: #FFD700; /* Yellow-500 background color */
+  background-color: #ffd700; /* Yellow-500 background color */
   border-radius: 50%;
   display: block;
   visibility: hidden;
@@ -213,4 +315,4 @@ export default {
 .radio-checked .radio-inner {
   visibility: visible; /* Show the inner circle when checked */
 }
-  </style>
+</style>
