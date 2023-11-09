@@ -25,9 +25,11 @@
             type="email"
             placeholder="your@gmail.com"
             id="email"
+            required
             class="block w-full bg-slate-50 rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 text-gray-500"
             @input="validateEmail"
-            @blur="validateEmail"
+            v-on:blur="validateEmail"
+    v-on:keyup.enter="$event.target.blur()"
           />
           <p id="error-message" class="text-red-600" v-if="showError">
             Invalid email address
@@ -54,6 +56,8 @@
             :max-date="maxDate"
             :format="format"
             ignore-time-validation
+            color="green lighten-1"
+
           >
         </VueDatePicker>
       </div>
@@ -135,6 +139,7 @@
           <input
             type="text"
             id="fname"
+            required
             placeholder="Jyot"
             class="w-full rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 text-gray-500"
           />
@@ -148,6 +153,7 @@
             type="text"
             id="lname"
             placeholder="Singh"
+            required
             class="rounded-lg border-solid border-gray-300 hover:border-gray-500 active:border-gray-900 border-2 p-2 w-full text-gray-500"
           />
         </div>
@@ -165,6 +171,7 @@
                 :value="sex"
                 v-model="selectedSex"
                 class="hidden"
+                required
               />
               <span
                 :class="{
@@ -314,5 +321,33 @@ export default {
 
 .radio-checked .radio-inner {
   visibility: visible; /* Show the inner circle when checked */
+}
+.dp__theme_light {
+    --dp-background-color: #fff;
+    --dp-text-color: #212121;
+    --dp-hover-color: #f3f3f3;
+    --dp-hover-text-color: #212121;
+    --dp-hover-icon-color: #959595;
+    --dp-primary-color: #ffd700;
+    --dp-primary-disabled-color:yellow;
+    --dp-primary-text-color: #f8f5f5;
+    --dp-secondary-color: #c0c4cc;
+    --dp-border-color: #ddd;
+    --dp-menu-border-color: #ddd;
+    --dp-border-color-hover: #aaaeb7;
+    --dp-disabled-color: #f6f6f6;
+    --dp-scroll-bar-background: #f3f3f3;
+    --dp-scroll-bar-color: #959595;
+    --dp-success-color: #76d275;
+    --dp-success-color-disabled: #a3d9b1;
+    --dp-icon-color: #959595;
+    --dp-danger-color: #ff6f60;
+    --dp-marker-color: #ff6f60;
+    --dp-tooltip-color: #fafafa;
+    --dp-disabled-color-text: #8e8e8e;
+    --dp-highlight-color: rgb(25 118 210 / 10%);
+    --dp-range-between-dates-background-color: var(--dp-hover-color, #f3f3f3);
+    --dp-range-between-dates-text-color: var(--dp-hover-text-color, #212121);
+    --dp-range-between-border-color: var(--dp-hover-color, #f3f3f3);
 }
 </style>
