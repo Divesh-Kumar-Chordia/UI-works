@@ -35,57 +35,28 @@
             Invalid email address
           </p>
         </div>
-
-        <!-- <div class="mb-1.5">
-                    <label for="dob" class=" text-gray-900 " >Date Of Birth <span class="text-red-600">*</span></label>
-                    <div class="flex flex-row border-2 border-gray-200 w-fit px-2 items-center justify-center mt-2">
-                      <input type="date" name="dob" class="p-2">
-                    </div>
-                </div> -->
         <!-- Date picker here -->
         <div class="h-[3rem] w-full mb-6 p-0">
           <label for="" class="font-medium text-gray-700"
             >Date Of Birth <span class="text-red-600">*</span></label
             >
             <div class="flex flex-row">
-              <span class="border-y-2 border-l-2 rounded-md border-gray-200 p-2 -mr-8 bg-white z-10">
-              <img src="./assets/icons/clock.svg">
-            </span>
+              
             <VueDatePicker
             v-model="date"
             :max-date="maxDate"
-            :format="format"
             ignore-time-validation
+            :format="format"
+            :text-input="{format: 'dd.MM.yyyy'}"
             color="green lighten-1"
-
+            :enable-time-picker="false"
           >
+          <template #input-icon>
+            <img class="w-auto ml-2 h-5" src="./assets/icons/clock.svg" />
+        </template>
         </VueDatePicker>
       </div>
         </div>
-        <!-- <CustomDatePicker/> -->
-        <!-- <vue-tailwind-datepicker v-model="dateValue" /> -->
-        <!-- <div>
-    <label for="datepicker-dateformat1">Custom date format</label>
-    <b-form-datepicker
-      id="datepicker-dateformat1"
-      :date-format-options="{ year: 'numeric', month: 'short', day: '2-digit', weekday: 'short' }"
-      locale="en"
-    ></b-form-datepicker>
-
-    <label class="mt-3" for="datepicker-dateformat2">Short date format</label>
-    <b-form-datepicker
-      id="datepicker-dateformat2"
-      :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-      locale="en"
-    ></b-form-datepicker>
-  </div> -->
-        <!-- <datePicker 
-    :options="calendarArr" 
-    class="calendar" 
-    @handleClickDay="handleClickDay" 
-    @handlePrevMonth="handlePrevMonth"
-    @handleNextMonth="handleNextMonth"
-  /> -->
         <!-- Career -->
         <div class="h-[10rem] w-full mb-8 p-0">
           <label for="career" class="font-medium text-gray-700"
@@ -238,7 +209,9 @@
 // import { BFormDatepicker } from 'bootstrap-vue'
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-
+// const textInputOptions = {
+//   format: 'dd.MM.yyyy'
+// };
 export default {
   // components: { CustomDatePicker },
   components: {
@@ -264,8 +237,10 @@ export default {
       const month = this.date.getMonth() + 1;
       const  monthName = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       const year = this.date.getFullYear();
-      return `${day}- ${monthName[month]} -${year}`;
+          return `${day}-${monthName[month]}-${year}`;
+    // }
     },
+   
     openImageFileInput() {
       this.$refs.fileInput.click();
     },
